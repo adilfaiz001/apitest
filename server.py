@@ -11,18 +11,8 @@ def render():
 
 
 @app.route('/success')
-def success(name):
+def success():
    return 'Successfully added to database'
-
-@app.route('/login',methods = ['POST', 'GET'])
-def login():
-   if request.method == 'POST':
-      user = request.form['nm']
-      return redirect(url_for('success',name = user))
-   else:
-      user = request.args.get('nm')
-      return redirect(url_for('success',name = user))
-
 
 @app.route('/post_location', methods = ['POST'])
 def post_location():
