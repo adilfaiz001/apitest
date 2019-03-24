@@ -14,21 +14,27 @@ def render():
 def success():
    return 'Successfully added to database'
 
+@app.route('/pin_exist')
+def pin_exist():
+   return 'Pincode already exist OR latitude+longitude already present'
+
 @app.route('/post_location', methods = ['POST'])
 def post_location():
    pin = request.form['pin']
    addr = request.form['address']
    city = request.form['city']
-   lat = request.form['lat']
-   lng = request.form['long']
+   lat = float(request.form['lat'])
+   lng = float(request.form['long'])
    
-   insert_data(pin,
-               addr,
-               city,
-               lat,
-               lng)
-
-   return redirect(url_for('success'))
+   res = insert_data(key = pin,
+                     place_name = addr,
+                     admin_name1 = city,
+                     latitude = lat,
+                     longitude = lng)
+   if res:
+      return redirect(url_for('success'))
+   else:
+      return redirect(url_for('pin_exist'))
 
 
 
